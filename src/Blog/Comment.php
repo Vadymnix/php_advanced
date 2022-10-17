@@ -7,14 +7,14 @@ class Comment
     private int $id;
     private int $authorId;
     private int $postId;
-    private int $comment;
+    private string $comment;
 
     /**
      * @param int $authorId
      * @param int $postId
-     * @param int $comment
+     * @param string $comment
      */
-    public function __construct(int $authorId, int $postId, int $comment)
+    public function __construct(int $authorId, int $postId, string $comment)
     {
         $this->authorId = $authorId;
         $this->postId = $postId;
@@ -40,7 +40,7 @@ class Comment
     /**
      * @return int
      */
-    public function getComment(): int
+    public function getComment(): string
     {
         return $this->comment;
     }
@@ -48,7 +48,7 @@ class Comment
     /**
      * @param int $comment
      */
-    public function setComment(int $comment): void
+    public function setComment(string $comment): void
     {
         $this->comment = $comment;
     }
@@ -67,5 +67,9 @@ class Comment
     public function getPostId(): int
     {
         return $this->postId;
+    }
+
+    public function __toString():string {
+        return $this->comment;
     }
 }

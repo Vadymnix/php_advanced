@@ -5,14 +5,20 @@ namespace VB\API\BLOG\Person;
 class User extends Person
 {
     private int $id;
-    private Person $person;
 
     /**
-     * @param Person $person
+     * @param string $firstName
+     * @param string $lastName
      */
-    public function __construct(Person $person) //может надо добавить id, вопрос работы с БД
+    public function __construct(string $firstName, string $lastName) //может надо добавить id, вопрос работы с БД
     {
-        $this->person = $person;
+        parent::__construct(
+            new Name(
+                $firstName,
+                $lastName
+            ),
+            new \DateTimeImmutable()
+        );
     }
 
     /**
@@ -31,11 +37,9 @@ class User extends Person
         $this->id = $id;
     }
 
-    /**
-     * @return Person
-     */
-    public function getPerson(): Person
+    public function __toString()
     {
-        return $this->person;
+        return $this->getName()->getFirstName() . " " .
+            $this->getName()->getLastName();
     }
 }

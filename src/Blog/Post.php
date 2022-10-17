@@ -67,6 +67,6 @@ class Post
 
     public function __toString()
     {
-        return $this->text;
+        return $this->title . " >>> " . $this->text;
     }
 }
