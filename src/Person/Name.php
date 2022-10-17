@@ -1,6 +1,6 @@
 <?php
 
-namespace VB\Person;
+namespace VB\API\BLOG\Person;
 
 class Name
 {

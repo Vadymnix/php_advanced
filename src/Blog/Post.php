@@ -1,8 +1,8 @@
 <?php
 
-namespace VB\Blog;
+namespace VB\API\BLOG\Blog;
 
-use VB\Person\Person;
+use VB\API\BLOG\Person\Person;
 
 class Post
 {

@@ -1,0 +1,19 @@
+{
+    "name": "chernomor/php_advanced",
+    "description": "learning php_level_2",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "VB\\API\\BLOG\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "UncleChernomor",
+            "email": "xchernomor@gmail.com"
+        }
+    ],
+    "minimum-stability": "beta",
+    "require": {}
+}
