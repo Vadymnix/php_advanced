@@ -2,6 +2,8 @@
 
 namespace VB\API\BLOG\Repositories\UsersRepository;
 
+use VB\API\BLOG\Person\User;
+
 class InMemoryUsersRepository
 {
     /**
@@ -25,7 +27,7 @@ class InMemoryUsersRepository
     public function get(int $id): User
     {
         foreach ($this->users as $user) {
-            if ($user->id() === $id) {
+            if ($user->getId() === $id) {
                 return $user;
             }
         }

@@ -1,26 +1,27 @@
 <?php
 require_once __DIR__ . "/vendor/autoload.php";
+require_once __DIR__ . "/functions.php";
+
 use VB\API\BLOG\Person\User;
 use VB\API\BLOG\Blog\{Post, Comment};
+use VB\API\BLOG\Repositories\UsersRepository\{InMemoryUsersRepository, UserNotFoundException};
 
-$faker = Faker\Factory::create();
+//Создаём объект репозитория
+$usersRepository = new InMemoryUsersRepository();
+//Добавляем в репозиторий несколько пользователей
+$user = new User('Ivan', 'Nikitin');
+$user->setId(123);
+$usersRepository->save($user);
+$user = new User('Anna', 'Petrova');
+$user->setId(234);
+$usersRepository->save($user);
 
-if (isset($argv[1])) {
-    switch ($argv[1]) {
-        case 'user' :
-            $user = new User( $faker->firstName(), $faker->lastName());
-            echo $user . PHP_EOL;
-            break;
-        case 'post':
-            $post = new Post($faker->imei(), $faker->paragraph(1), $faker->text());
-            echo $post .PHP_EOL;
-            break;
-        case 'comment':
-            $comment = new Comment($faker->imei(), $faker->imei(), $faker->text());
-            echo $comment . PHP_EOL;
-            break;
-        default:
-            echo "unknowing argument" . PHP_EOL;
-    }
+try {
+//Загружаем пользователя из репозитория
+    $user = $usersRepository->get(333);
+    print $user->name();
+} catch (UserNotFoundException $e) {
+    print $e->getMessage() . PHP_EOL;
 }
+
 
