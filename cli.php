@@ -1,12 +1,10 @@
 <?php
-require_once "vendor/autoload.php";
+require_once __DIR__ . "/vendor/autoload.php";
 use VB\API\BLOG\Person\User;
-use VB\API\BLOG\Blog\Post;
-use VB\API\BLOG\Blog\Comment;
+use VB\API\BLOG\Blog\{Post, Comment};
 
 $faker = Faker\Factory::create();
-//echo $faker->firstName() ." " . $faker->lastName() . PHP_EOL;
-var_dump($argv);
+
 if (isset($argv[1])) {
     switch ($argv[1]) {
         case 'user' :

@@ -1,11 +1,11 @@
 <?php
 
-namespace VB\package_name\Test;
+namespace VB\package_name;
 
-class Name0
+class Test_Name0
 {
     public function __toString()
     {
-        return "VB\package_name\Test  Name0";
+        return "VB\package_name class name is  Test_Name0";
     }
 }
