@@ -15,21 +15,52 @@ use VB\API\BLOG\Commands\{
     Arguments
 };
 use B\API\BLOG\Exceptions\AppException;
+use VB\API\BLOG\Repositories\PostsRepository\SqlitePostsRepository;
+use VB\API\BLOG\Repositories\CommentsRepository\SqliteCommentsRepository;
 
-$usersRepository = new SqliteUsersRepository(
-    new PDO('sqlite:' . __DIR__ . '/blog.db')
-);
-//
+$pdo = new PDO('sqlite:' . __DIR__ . '/blog.db');
+$faker = Faker\Factory::create();
+//$usersRepository = new SqliteUsersRepository(
+//    $pdo)
+//);
 //$usersRepository->save(new User('Ivan', 'Nikitin', UUID::random()));
 //$usersRepository->save(new User('Anna', 'Petrova', UUID::random()));
 
-$command = new CreateUserCommand($usersRepository);
 try {
-    $command->handle(Arguments::fromArgv($argv));
+    $postsRepo = new SqlitePostsRepository($pdo);
+    $postsRepo->save(
+        new Post(
+            UUID::random(),
+            new UUID('a5587e4c-ac9d-4754-ac5c-fcfb528b5374'),
+            $faker->text(20),
+            $faker->paragraph()
+        )
+    );
+
+    $commentRepo = new SqliteCommentsRepository($pdo);
+    $commentRepo->save(
+        new Comment(
+            UUID::random(),
+            new UUID('a5587e4c-ac9d-4754-ac5c-fcfb528b5374'),
+            new UUID('909a9d0d-e67a-4aec-8597-75a53db24aac'),
+            $faker->paragraph()
+        )
+    );
+} catch (AppException $e) {
+    echo $e->getMessage() . PHP_EOL;
 }
-catch (AppException $e) {
-    echo "{$e->getMessage()}\n" . PHP_EOL;
-}
+
+
+////////////////////////////////
+///Example l-2 method
+//$command = new CreateUserCommand($usersRepository);
+//try {
+//    $command->handle(Arguments::fromArgv($argv));
+//}
+//catch (AppException $e) {
+//    echo "{$e->getMessage()}\n" . PHP_EOL;
+//}
+/////////////////////////////////
 
 //LESSON-1
 ////Создаём объект репозитория

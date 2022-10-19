@@ -4,41 +4,55 @@ namespace VB\API\BLOG\Blog;
 
 class Comment
 {
-    private int $id;
-    private int $authorId;
-    private int $postId;
+    private UUID $uuid;
+    private UUID $authorUUID;
+    private UUID $postUUID;
     private string $comment;
 
     /**
-     * @param int $authorId
-     * @param int $postId
+     * @param UUID $uuid
+     * @param UUID $authorUUID
+     * @param UUID $postUUID
      * @param string $comment
      */
-    public function __construct(int $authorId, int $postId, string $comment)
+    public function __construct(
+        UUID $uuid,
+        UUID $authorUUID,
+        UUID $postUUID,
+        string $comment)
     {
-        $this->authorId = $authorId;
-        $this->postId = $postId;
+        $this->uuid = $uuid;
+        $this->authorUUID = $authorUUID;
+        $this->postUUID = $postUUID;
         $this->comment = $comment;
     }
 
     /**
-     * @return int
+     * @return UUID
      */
-    public function getId(): int
+    public function getUUID(): UUID
     {
-        return $this->id;
+        return $this->uuid;
     }
 
     /**
-     * @param int $id
+     * @return UUID
      */
-    public function setId(int $id): void
+    public function getAuthorUUID(): UUID
     {
-        $this->id = $id;
+        return $this->authorUUID;
     }
 
     /**
-     * @return int
+     * @return UUID
+     */
+    public function getPostUUID(): UUID
+    {
+        return $this->postUUID;
+    }
+
+    /**
+     * @return string
      */
     public function getComment(): string
     {
@@ -46,27 +60,11 @@ class Comment
     }
 
     /**
-     * @param int $comment
+     * @param string $comment
      */
     public function setComment(string $comment): void
     {
         $this->comment = $comment;
-    }
-
-    /**
-     * @return int
-     */
-    public function getAuthorId(): int
-    {
-        return $this->authorId;
-    }
-
-    /**
-     * @return int
-     */
-    public function getPostId(): int
-    {
-        return $this->postId;
     }
 
     public function __toString():string {
