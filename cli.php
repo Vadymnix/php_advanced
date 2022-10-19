@@ -9,16 +9,27 @@ use VB\API\BLOG\Repositories\UsersRepository\{
     UserNotFoundException,
     SqliteUsersRepository,
 };
+use VB\API\BLOG\Commands\{
+    CreateUserCommand,
+    CommandException,
+    Arguments
+};
+use B\API\BLOG\Exceptions\AppException;
 
 $usersRepository = new SqliteUsersRepository(
     new PDO('sqlite:' . __DIR__ . '/blog.db')
 );
+//
+//$usersRepository->save(new User('Ivan', 'Nikitin', UUID::random()));
+//$usersRepository->save(new User('Anna', 'Petrova', UUID::random()));
 
-print UUID::random();
-
-$usersRepository->save(new User('Ivan', 'Nikitin', UUID::random()));
-$usersRepository->save(new User('Anna', 'Petrova', UUID::random()));
-
+$command = new CreateUserCommand($usersRepository);
+try {
+    $command->handle(Arguments::fromArgv($argv));
+}
+catch (AppException $e) {
+    echo "{$e->getMessage()}\n" . PHP_EOL;
+}
 
 //LESSON-1
 ////Создаём объект репозитория
@@ -38,5 +49,3 @@ $usersRepository->save(new User('Anna', 'Petrova', UUID::random()));
 //} catch (UserNotFoundException $e) {
 //    print $e->getMessage() . PHP_EOL;
 //}
-
-

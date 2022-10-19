@@ -3,8 +3,9 @@
 namespace VB\API\BLOG\Repositories\UsersRepository;
 
 use VB\API\BLOG\Person\User;
+use VB\API\BLOG\Blog\UUID;
 
-class InMemoryUsersRepository
+class InMemoryUsersRepository implements UsersRepositoryInterface
 {
     /**
      * @var User[]
@@ -32,6 +33,17 @@ class InMemoryUsersRepository
             }
         }
 
-        throw new UserNotFoundException("User not found: $id");
+        throw new UserNotFoundException("User not found: $uuid");
+    }
+
+    public function getByUsername(string $username): User
+    {
+        foreach ($this->users as $user) {
+            if ($user->getUsername() === $username) {
+                return $user;
+            }
+        }
+
+        throw new UserNotFoundException("User not found: $username");
     }
 }

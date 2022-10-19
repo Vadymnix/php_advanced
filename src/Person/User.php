@@ -7,6 +7,15 @@ use VB\API\BLOG\Blog\UUID;
 class User extends Person
 {
     private UUID $uuid;
+    private string $username;
+
+    /**
+     * @return string
+     */
+    public function getUsername(): string
+    {
+        return $this->username;
+    }
 
     /**
      * @param string $firstName
@@ -16,7 +25,8 @@ class User extends Person
     public function __construct(
         string $firstName,
         string $lastName,
-        UUID $uuid
+        UUID $uuid,
+        $username
     )
     {
         parent::__construct(
@@ -28,6 +38,7 @@ class User extends Person
         );
 
         $this->uuid = $uuid;
+        $this->username = $username;
     }
 
     /**
