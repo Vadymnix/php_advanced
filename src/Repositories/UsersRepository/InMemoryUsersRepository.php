@@ -20,14 +20,14 @@ class InMemoryUsersRepository
     }
 
     /**
-     * @param int $id
+     * @param UUID $uuid
      * @return User
      * @throws UserNotFoundException
      */
-    public function get(int $id): User
+    public function get(UUID $uuid): User
     {
         foreach ($this->users as $user) {
-            if ($user->getId() === $id) {
+            if ((string)$user->getUUID() === (string)$uuid) {
                 return $user;
             }
         }

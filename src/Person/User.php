@@ -2,15 +2,22 @@
 
 namespace VB\API\BLOG\Person;
 
+use VB\API\BLOG\Blog\UUID;
+
 class User extends Person
 {
-    private int $id;
+    private UUID $uuid;
 
     /**
      * @param string $firstName
      * @param string $lastName
+     * @param UUID $uuid
      */
-    public function __construct(string $firstName, string $lastName) //может надо добавить id, вопрос работы с БД
+    public function __construct(
+        string $firstName,
+        string $lastName,
+        UUID $uuid
+    )
     {
         parent::__construct(
             new Name(
@@ -19,22 +26,16 @@ class User extends Person
             ),
             new \DateTimeImmutable()
         );
+
+        $this->uuid = $uuid;
     }
 
     /**
-     * @return int
+     * @return UUID
      */
-    public function getId(): int
+    public function getUUID(): UUID
     {
-        return $this->id;
-    }
-
-    /**
-     * @param int $id
-     */
-    public function setId(int $id): void
-    {
-        $this->id = $id;
+        return $this->uuid;
     }
 
     public function __toString()
