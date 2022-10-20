@@ -20,6 +20,8 @@ use VB\API\BLOG\Repositories\CommentsRepository\SqliteCommentsRepository;
 
 $pdo = new PDO('sqlite:' . __DIR__ . '/blog.db');
 $faker = Faker\Factory::create();
+
+//Тест для добавления Юзверя
 //$usersRepository = new SqliteUsersRepository(
 //    $pdo)
 //);
@@ -27,25 +29,31 @@ $faker = Faker\Factory::create();
 //$usersRepository->save(new User('Anna', 'Petrova', UUID::random()));
 
 try {
-    $postsRepo = new SqlitePostsRepository($pdo);
-    $postsRepo->save(
-        new Post(
-            UUID::random(),
-            new UUID('a5587e4c-ac9d-4754-ac5c-fcfb528b5374'),
-            $faker->text(20),
-            $faker->paragraph()
-        )
-    );
 
-    $commentRepo = new SqliteCommentsRepository($pdo);
-    $commentRepo->save(
-        new Comment(
-            UUID::random(),
-            new UUID('a5587e4c-ac9d-4754-ac5c-fcfb528b5374'),
-            new UUID('909a9d0d-e67a-4aec-8597-75a53db24aac'),
-            $faker->paragraph()
-        )
-    );
+    $postsRepo = new SqlitePostsRepository($pdo);
+//тест для добавления Post
+//    $postsRepo->save(
+//        new Post(
+//            UUID::random(),
+//            new UUID('a5587e4c-ac9d-4754-ac5c-fcfb528b5374'),
+//            $faker->text(20),
+//            $faker->paragraph()
+//        )
+//    );
+//    echo "POST --- " .
+//        $postsRepo->get(new UUID('909a9d0d-e67a-4aec-8597-75a53db24aac')) . PHP_EOL;
+
+//Тест для добавления комментария
+      $commentRepo = new SqliteCommentsRepository($pdo);
+//    $commentRepo->save(
+//        new Comment(
+//            UUID::random(),
+//            new UUID('a5587e4c-ac9d-4754-ac5c-fcfb528b5374'),
+//            new UUID('909a9d0d-e67a-4aec-8597-75a53db24aac'),
+//            $faker->paragraph()
+//        )
+//    );
+    echo "COMMENT --- " . $commentRepo->get(new UUID('8981646b-4a6e-4b12-9c1b-28d9e1137f77')) . PHP_EOL;
 } catch (AppException $e) {
     echo $e->getMessage() . PHP_EOL;
 }

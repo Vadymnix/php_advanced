@@ -6,6 +6,7 @@ use VB\API\BLOG\Blog\{Comment, UUID};
 use PDO;
 use PDOStatement;
 use VB\API\BLOG\Exceptions\DontSaveDbException;
+use VB\API\BLOG\Exceptions\InvalidArgumentException;
 
 class SqliteCommentsRepository implements CommentsRepositoryInterface
 {
@@ -39,7 +40,32 @@ class SqliteCommentsRepository implements CommentsRepositoryInterface
         ]);
     }
 
+    /**
+     * @throws CommentNotFoundException
+     * @throws InvalidArgumentException
+     */
     public function get(UUID $uuid): Comment {
-        return Comment::class;
+        $sql = "SELECT * FROM  comments WHERE uuid=:uuid";
+        $statement = $this->pdo->prepare($sql);
+
+        if (!$statement) {
+            throw new CommentNotFoundException("Ошибка в подготовке");
+        }
+
+        if(!$statement->execute([':uuid' => $uuid]) ) {
+            throw new CommentNotFoundException("Ошибка в исполнении");
+        }
+
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        if (!$result) {
+            throw new CommentNotFoundException("Ошибка в фетч");
+        }
+
+        return new Comment(
+            new UUID($result['uuid']),
+            new UUID($result['post_uuid']),
+            new UUID($result['author_uuid']),
+            $result['comment'],
+        );
     }
 }
