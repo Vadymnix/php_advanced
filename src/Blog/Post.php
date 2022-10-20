@@ -4,33 +4,39 @@ namespace VB\API\BLOG\Blog;
 
 class Post
 {
-    private int $id;
-    private int $authorId;
+    private UUID $uuid;
+    private UUID $authorUUID;
     private string $title;
     private string $text;
 
     //возможно нужен $id, вопрос генерации $id в БД
-    public function __construct(int $authorId, string $title, string $text)
+    public function __construct(
+        UUID $uuid,
+        UUID $authorUUID,
+        string $title,
+        string $text
+    )
     {
-        $this->authorId = $authorId;
+        $this->uuid = $uuid;
+        $this->authorUUID = $authorUUID;
         $this->text = $text;
         $this->title = $title;
     }
 
     /**
-     * @return int
+     * @return UUID
      */
-    public function getId(): int
+    public function getUUID(): UUID
     {
-        return $this->id;
+        return $this->uuid;
     }
 
     /**
-     * @param int $id
+     * @return UUID
      */
-    public function setId(int $id): void
+    public function getAuthorUUID(): UUID
     {
-        $this->id = $id;
+        return $this->authorUUID;
     }
 
     /**
@@ -47,14 +53,6 @@ class Post
     public function setText(string $text): void
     {
         $this->text = $text;
-    }
-
-    /**
-     * @return int
-     */
-    public function getAuthorId(): int
-    {
-        return $this->authorId;
     }
 
     /**
